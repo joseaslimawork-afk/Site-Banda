@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Os Azeitonas – Fotografias</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .gallery {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+      border-color: var(--primary);
+    }
+    .gallery-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0.5rem 0.75rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+      font-size: 0.85rem;
+    }
+    /* lightbox simples */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      color: #fff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" style="min-height: 50vh;">
+    <div class="overlay"></div>
+    <nav class="nav">
+      <div class="logo">Os Azeitonas</div>
+      <ul class="nav-links">
+        <li><a href="index.html#bio">Biografia</a></li>
+        <li><a href="index.html#discografia">Discografia</a></li>
+        <li><a href="fotografias.html">Fotografias</a></li>
+        <li><a href="contactos.html">Contactos</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </nav>
+
+    <div class="hero-content">
+      <h1>Fotografias</h1>
+      <p>Galeria de imagens de concertos e sessões fotográficas d'Os Azeitonas.[web:21][web:24][web:25][web:31]</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2>Galeria</h2>
+      <p>Substitui as imagens de exemplo pelas tuas próprias fotos de concertos ou promo.[web:25][web:29][web:31]</p>
+
+      <div class="gallery">
+        <!-- Exemplos com placeholders; aponta para ficheiros locais da tua pasta -->
+        <div class="gallery-item" data-full="img/concerto-porto.jpg">
+          <img src="img/concerto-porto-thumb.jpg" alt="Concerto no Coliseu do Porto" />
+          <div class="gallery-caption">Concerto no Coliseu do Porto.[web:23][web:29]</div>
+        </div>
+
+        <div class="gallery-item" data-full="img/festas-do-mar.jpg">
+          <img src="img/festas-do-mar-thumb.jpg" alt="Os Azeitonas nas Festas do Mar" />
+          <div class="gallery-caption">Festas do Mar, concerto ao ar livre.[web:31]</div>
+        </div>
+
+        <div class="gallery-item" data-full="img/fotogaleria-coliseu.jpg">
+          <img src="img/fotogaleria-coliseu-thumb.jpg" alt="Fotogaleria Coliseu" />
+          <div class="gallery-caption">Noite de consagração no Coliseu.[web:25][web:24]</div>
+        </div>
+
+        <div class="gallery-item" data-full="img/backstage.jpg">
+          <img src="img/backstage-thumb.jpg" alt="Backstage Os Azeitonas" />
+          <div class="gallery-caption">Momentos de bastidores antes do concerto.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <img id="lightboxImg" src="" alt="Foto ampliada" />
+  </div>
+
+  <footer class="footer">
+    <p>Site não oficial, criado para fins de demonstração.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Lightbox simples para a galeria
+    const items = document.querySelectorAll(".gallery-item");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxClose = document.getElementById("lightboxClose");
+
+    items.forEach(item => {
+      item.addEventListener("click", () => {
+        const full = item.getAttribute("data-full");
+        lightboxImg.src = full;
+        lightbox.style.display = "flex";
+      });
+    });
+
+    lightboxClose.addEventListener("click", () => {
+      lightbox.style.display = "none";
+      lightboxImg.src = "";
+    });
+
+    lightbox.addEventListener("click", e => {
+      if (e.target === lightbox) {
+        lightbox.style.display = "none";
+        lightboxImg.src = "";
+      }
+    });
+  </script>
+</body>
+</html>
